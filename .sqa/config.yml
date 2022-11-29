@@ -1,0 +1,66 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.7
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/cyfronet-fid/recommender-system:
+      branch: main
+      repo: https://github.com/cyfronet-fid/recommender-system
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/cyfronet-fid/recommender-system git:
+        commands:
+        - /usr/bin/env sh .sqa/script.lanky-cinnabar-gecko.sh
+        container: qc.acc_breezy-chartreuse-bandicoot
+  QC.Doc:
+    repos:
+      github.com/cyfronet-fid/recommender-system find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.flaky-asparagus-spitz.sh
+        container: qc.doc_ready-coral-mongrel
+      github.com/cyfronet-fid/recommender-system git:
+        commands:
+        - /usr/bin/env sh .sqa/script.squirrely-razzmatazz-zebra.sh
+        container: qc.doc_skanky-magenta-leopard
+      github.com/cyfronet-fid/recommender-system markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.droopy-auburn-snake.sh
+        container: qc.doc_shaggy-magenta-frigatebird
+  QC.Lic:
+    repos:
+      github.com/cyfronet-fid/recommender-system licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.chewy-alizarin-spider.sh
+        container: qc.lic_tacky-sangria-sheepdog
+  QC.Sec:
+    repos:
+      github.com/cyfronet-fid/recommender-system bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.chummy-cinnamon-pig.sh
+        container: qc.sec_pretty-rust-flounder
+  QC.Sty:
+    repos:
+      github.com/cyfronet-fid/recommender-system flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.jumpy-myrtle-baboon.sh
+        container: qc.sty_scummy-burgundy-wildebeest
+      github.com/cyfronet-fid/recommender-system hadolint:
+        commands:
+        - /usr/bin/env sh .sqa/script.thirsty-olivine-crocodile.sh
+        container: qc.sty_freaky-cerulean-eagle
+      github.com/cyfronet-fid/recommender-system jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-thistle-crab.sh
+        container: qc.sty_sloppy-beige-mule
+  QC.Ver:
+    repos:
+      github.com/cyfronet-fid/recommender-system get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.breezy-crimson-opossum.sh
+        container: qc.ver_shaggy-saffron-tzu
+timeout: 1800
